@@ -1,6 +1,7 @@
 const express=require('express');
 const app=express();
 const routeUser=require('./Routes/user');
+const routeUserDetail=require('./Routes/userDetail');
 const mongoose=require('mongoose');
 const dotenv=require('dotenv');
 dotenv.config();
@@ -26,6 +27,7 @@ async function connect()
 
 connect()
 app.use('/user',routeUser);
+app.use('/userDetail',routeUserDetail);
 app.get('/',(req,res)=>{
     res.send("Hello");
 })

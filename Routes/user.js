@@ -24,7 +24,8 @@ route.delete('/delete/',async(req,res)=>{
 
 
 route.post('/post',async(req,res)=>{
-    const userData=new userModel({userId:req.body.userId,fullName:req.body.fullName});
+    console.log(req.body)
+    const userData=new userModel({registrationNo:req.body.registrationNo,fullName:req.body.fullName});
     try {
         const savedData=await userData.save();
         res.json(savedData);
@@ -32,6 +33,7 @@ route.post('/post',async(req,res)=>{
         console.log(error.message);
         res.status(400).json(error.message)
     }
+    // res.send("hello");
     
 })
 
