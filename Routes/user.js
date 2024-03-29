@@ -11,6 +11,17 @@ route.get('/',async(req,res)=>{
     }
 })
 
+route.get('/:id',async(req,res)=>{
+    try {
+        const data=await userModel.find({registrationNo:req.params.id});
+        console.log(data);
+        res.json(data);
+    } catch (error) {
+        console.log(error.message);
+        res.status(400).json(error)
+    }
+})
+
 route.delete('/delete/',async(req,res)=>{
     console.log("Id is ",req.body);
      try {
