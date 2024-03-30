@@ -1,5 +1,6 @@
 const route=require('express').Router();
-const userModel=require('../Models/user')
+const userModel=require('../Models/user');
+const authenticate=require('./Authenticate');
 route.get('/',async(req,res)=>{
     try {
         const data=await userModel.find();
@@ -22,11 +23,11 @@ route.get('/:id',async(req,res)=>{
     }
 })
 
-route.delete('/delete/',async(req,res)=>{
+route.delete('/delete/',authenticate,async(req,res)=>{
     console.log("Id is ",req.body);
      try {
         const data=await userModel.findByIdAndDelete(req.body.id);
-        res.send("Data deleted");
+        res.json({result:true,payload:"Data deleted successfully"});
         console.log(data);
      } catch (error) {
         res.send(error.message)
@@ -34,12 +35,12 @@ route.delete('/delete/',async(req,res)=>{
 })
 
 
-route.post('/post',async(req,res)=>{
+route.post('/post',authenticate,async(req,res)=>{
     console.log(req.body)
     const userData=new userModel({registrationNo:req.body.registrationNo,fullName:req.body.fullName});
     try {
         const savedData=await userData.save();
-        res.json(savedData);
+        res.json({result:true,payload:savedData});
     } catch (error) {
         console.log(error.message);
         res.status(400).json(error.message)
