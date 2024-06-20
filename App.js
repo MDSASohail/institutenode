@@ -34,6 +34,10 @@ app.get('/',(req,res)=>{
     res.send("Hello");
 })
 
+app.get('*',(req,res)=>{
+    res.send("Working fine");
+})
+
 app.listen(8000,()=>{
     console.log("Server started at 8000")
 })
